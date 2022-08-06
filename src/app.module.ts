@@ -10,7 +10,9 @@ import { join } from 'path';
     TypeOrmModule.forRoot({
       name: 'default',
       type: 'mongodb',
-      url: 'mongodb+srv://auth_wiki_team10:auth_wiki_team10@cluster0.96g0xco.mongodb.net/authWikiNest?retryWrites=true&w=majority',
+      // url: 'mongodb+srv://auth_wiki_team10:auth_wiki_team10@cluster0.96g0xco.mongodb.net/authWikiNest?retryWrites=true&w=majority',
+      host: 'localhost',
+      port: 27017,
       database: 'authWikiNest',
       useNewUrlParser: true,
       autoLoadEntities: true,

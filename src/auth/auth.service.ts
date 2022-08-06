@@ -60,7 +60,7 @@ export class AuthService {
     await this.refreshTokenRepository.findOneAndDelete({ user });
     return {
       accessToken: this.jwtService.sign(payload, {
-        secret: process.env.JWT_SECRET,
+        secret: 'my-jwt-super-secret-to-keep-away-from-everyone',
       }),
       refreshToken: await this.generateRefreshToken(user),
     };
@@ -76,7 +76,7 @@ export class AuthService {
     let payloadObj;
     try {
       payloadObj = this.jwtService.verify(refreshToken, {
-        secret: process.env.JWT_SECRET,
+        secret: 'my-jwt-super-secret-to-keep-away-from-everyone',
       });
     } catch (e) {
       throw new HttpException(
@@ -97,7 +97,7 @@ export class AuthService {
       email: user.email,
     };
     const accessToken = this.jwtService.sign(payload, {
-      secret: process.env.JWT_SECRET,
+      secret: 'my-jwt-super-secret-to-keep-away-from-everyone',
     });
     return {
       accessToken,
@@ -116,7 +116,7 @@ export class AuthService {
       email: user.email,
     };
     const tokenString = this.jwtService.sign(payload, {
-      secret: process.env.JWT_SECRET,
+      secret: 'my-jwt-super-secret-to-keep-away-from-everyone',
       expiresIn: '2d',
     });
     const token = new RefreshToken(tokenString, user);

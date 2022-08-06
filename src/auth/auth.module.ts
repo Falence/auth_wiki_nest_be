@@ -12,7 +12,7 @@ import { User } from './user.entity';
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: 'my-jwt-super-secret-to-keep-away-from-everyone',
       signOptions: {
         expiresIn: '10h',
       },
