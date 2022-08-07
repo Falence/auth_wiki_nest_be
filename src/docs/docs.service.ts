@@ -49,8 +49,14 @@ export class DocsService {
     return doc;
   }
 
-  async editDoc(dto: EditDocDto, id: ObjectID): Promise<Doc> {
+  async editDoc(dto: EditDocDto, id: ObjectID, user: User): Promise<Doc> {
     const doc = await this.getDoc(id);
+    if (doc.author.name != user.name) {
+      throw new HttpException(
+        'You are not the author of this doc',
+        HttpStatus.FORBIDDEN,
+      );
+    }
     doc.title = dto.title;
     doc.description = dto.description;
     doc.blocks = dto.blocks;
@@ -59,9 +65,23 @@ export class DocsService {
     return await this.getDoc(id);
   }
 
-  async deleteDoc(id: ObjectID): Promise<void> {
+  async deleteDoc(id: ObjectID, user: User): Promise<void> {
     const doc = await this.getDoc(id);
+    if (doc.author.name != user.name) {
+      throw new HttpException(
+        'You are not the author of this doc',
+        HttpStatus.FORBIDDEN,
+      );
+    }
     await this.repository.delete(id);
+
+    // delete all comment related to the doc
+    const comments = await this.commentService.getAllCommentsByDoc(doc);
+    let i = comments.length;
+    while (i > 0) {
+      await this.commentService.deleteComment(comments[i - 1].id);
+      i--;
+    }
     return;
   }
 

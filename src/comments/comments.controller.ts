@@ -32,6 +32,6 @@ export class CommentsController {
     @Param('id', ValidationPipe) id: ObjectID,
     @GetUser() user: User,
   ) {
-    return this.commentService.deleteComment(id, user);
+    return this.commentService.deleteCommentById(id, user);
   }
 }

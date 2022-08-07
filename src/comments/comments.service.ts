@@ -36,7 +36,7 @@ export class CommentsService {
     return await this.repository.find({ where: { docId: doc.id.toString() } });
   }
 
-  async deleteComment(id: ObjectID, user: User) {
+  async deleteCommentById(id: ObjectID, user: User) {
     const comment = await this.repository.findOneBy(id);
     if (!comment) {
       throw new HttpException('Comment not found', HttpStatus.NOT_FOUND);
@@ -49,5 +49,9 @@ export class CommentsService {
     }
     await this.repository.delete(comment.id);
     return;
+  }
+
+  async deleteComment(id: ObjectID) {
+    return this.repository.delete(id);
   }
 }

@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseBoolPipe,
   Post,
   Put,
   UseGuards,
@@ -45,13 +44,17 @@ export class DocsController {
   async editDoc(
     @Body(ValidationPipe) body: EditDocDto,
     @Param('id', ValidationPipe) id: ObjectID,
+    @GetUser() user: User,
   ) {
-    return this.docService.editDoc(body, id);
+    return this.docService.editDoc(body, id, user);
   }
 
   @Delete('/:id/delete')
-  async deleteDoc(@Param('id', ValidationPipe) id: ObjectID) {
-    return this.docService.deleteDoc(id);
+  async deleteDoc(
+    @Param('id', ValidationPipe) id: ObjectID,
+    @GetUser() user: User,
+  ) {
+    return this.docService.deleteDoc(id, user);
   }
 
   // @Post('/:id/like')
