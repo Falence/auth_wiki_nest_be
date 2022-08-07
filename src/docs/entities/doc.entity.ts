@@ -1,4 +1,5 @@
 import { User } from 'src/auth/user.entity';
+import { Comment } from 'src/comments/entities/comment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -26,6 +27,9 @@ export class Doc {
 
   @Column(() => Block)
   blocks: Block[];
+
+  @Column(() => Comment)
+  comments: Comment[];
 
   constructor(
     title: string,

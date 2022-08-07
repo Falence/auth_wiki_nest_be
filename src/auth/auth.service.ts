@@ -31,7 +31,6 @@ export class AuthService {
     const password = bcrypt.hashSync(dto.password, 10);
     let user = new User(dto.name, dto.email, password);
     user = await this.repository.save(user);
-    delete user.password;
     return user;
   }
 

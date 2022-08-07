@@ -20,6 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user) {
       throw new HttpException('Unauthorized user', HttpStatus.UNAUTHORIZED);
     }
+    delete user.password;
     return user;
   }
 }
