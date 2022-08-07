@@ -15,7 +15,7 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
       "password": "password"
     }
   ```
-  - **Response**
+  - **Response**: User object
   - **Status code**: `200`
   ```js
     {
@@ -37,7 +37,7 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
       "password": "password",
     }
   ```
-  - **Response**
+  - **Response**: access token and refresh token
   - **Status code**: `200`
   ```js
     {
@@ -56,7 +56,7 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZWVmYmUwZmE4YmQ2NGRhY2Y5NDg1ZiIsIm5hbWUiOiJGYWxlbmNlIExlbXUiLCJlbWFpbCI6ImxlbXVAbGVtdS5jb20iLCJpYXQiOjE2NTk4MjkzNjgsImV4cCI6MTY2MDAwMjE2OH0.EhQvM6CHmEs50M9wI45pWxLXbFyRPXCDRcQn52VQ07I",
     }
   ```
-  - **Response**
+  - **Response**: access token and refresh token
   - **Status code**: `200`
   ```js
     {
@@ -102,7 +102,7 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
       ]
     }
   ```
-  - **Response**
+  - **Response**: Documentation object
   - **Status code**: `200`
   ```js
     {
@@ -150,7 +150,7 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
   ```js
     { }
   ```
-  - **Response**
+  - **Response**: List (array) of documentations
   - **Status code**: `200`
   ```js
     [
@@ -237,7 +237,7 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
   ```js
     { }
   ```
-  - **Response**
+  - **Response**: Documentation object including an array of all comments associated to the documentation
   - **Status code**: `200`
   ```js
     {
@@ -326,7 +326,7 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
       ]
     }
   ```
-  - **Response**
+  - **Response**: New documentation object
   - **Status code**: `200`
   ```js
     {
@@ -355,8 +355,8 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
   ```js
     { }
   ```
+  - **Response**: Empty response
   - **Status code**: `200`
-  Status code: `200`
   ```js
     { }
   ```
@@ -375,7 +375,7 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
       "message": "Wow! Thanks for this code! It works well."
     }
   ```
-  - **Response**
+  - **Response**: Empty response
   - **Status code**: `200`
   ```js
     { }
@@ -392,8 +392,8 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
       "message": "Wow! Thanks for this code! It works well."
     }
   ```
+  - **Response**: Empty response
   - **Status code**: `200`
-  Status code: `200`
   ```js
     { }
   ```
