@@ -1,12 +1,13 @@
 # Auth Wiki backend [NestJs]
 ## API DOCUMENTATION
+Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
 ### AUTH
 #### 1) SIGN UP:
   Registers a new user
   ```js
     POST https://auth-wiki-team10.herokuapp.com/api/auth/register/
   ```
-  **Body**
+  - **Body**
   ```js
     {
       "name": "Hamsa",
@@ -14,8 +15,8 @@
       "password": "password"
     }
   ```
-  **Response**
-  Status code: `201`
+  - **Response**
+  - **Status code**: `200`
   ```js
     {
       "id": "62ef57b6eca28200167a2860"
@@ -29,15 +30,15 @@
   ```js
     POST https://auth-wiki-team10.herokuapp.com/api/auth/login/
   ```
-  **Body**
+  - **Body**
   ```js
     {
       "email": "has@hamsa.com",
       "password": "password",
     }
   ```
-  **Response**
-  Status code: `200`
+  - **Response**
+  - **Status code**: `200`
   ```js
     {
       "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 eyJpZCI6IjYyZWY0OTQ0NDY1NTRjMzM5ODc1MzlmZiIsIm5hbWUiOiJIYW1zYSIsImVtYWlsIjoiaGFtc2FAaGFtc2EuY29tIiwiaWF0IjoxNjU5ODUyODkyLCJleHAiOjE2NTk4ODg4OTJ9.x7HHawUwvGdsiPfmUangVVFBezHy8XB-Br-eSQYDoSA",
@@ -49,14 +50,14 @@
   ```js
     POST https://auth-wiki-team10.herokuapp.com/api/auth/refresh/
   ```
-  **Body**
+  - **Body**
   ```js
     {
       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZWVmYmUwZmE4YmQ2NGRhY2Y5NDg1ZiIsIm5hbWUiOiJGYWxlbmNlIExlbXUiLCJlbWFpbCI6ImxlbXVAbGVtdS5jb20iLCJpYXQiOjE2NTk4MjkzNjgsImV4cCI6MTY2MDAwMjE2OH0.EhQvM6CHmEs50M9wI45pWxLXbFyRPXCDRcQn52VQ07I",
     }
   ```
-  **Response**
-  Status code: `200`
+  - **Response**
+  - **Status code**: `200`
   ```js
     {
       "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 eyJpZCI6IjYyZWY0OTQ0NDY1NTRjMzM5ODc1MzlmZiIsIm5hbWUiOiJIYW1zYSIsImVtYWlsIjoiaGFtc2FAaGFtc2EuY29tIiwiaWF0IjoxNjU5ODUyODkyLCJleHAiOjE2NTk4ODg4OTJ9.x7HHawUwvGdsiPfmUangVVFBezHy8XB-Br-eSQYDoSA",
@@ -70,7 +71,7 @@
   ```js
     POST https://auth-wiki-team10.herokuapp.com/api/docs/
   ```
-  **Body**
+  - **Body**
   ```js
     {
       "title": "New ones",
@@ -101,8 +102,8 @@
       ]
     }
   ```
-  **Response**
-  Status code: `200`
+  - **Response**
+  - **Status code**: `200`
   ```js
     {
       "id": "62ef499646554c3398753a02",
@@ -145,12 +146,12 @@
   ```js
     GET https://auth-wiki-team10.herokuapp.com/api/docs/
   ```
-  **Body**
+  - **Body**
   ```js
     { }
   ```
-  **Response**
-  Status code: `200`
+  - **Response**
+  - **Status code**: `200`
   ```js
     [
       {
@@ -232,12 +233,12 @@
   ```js
     GET https://auth-wiki-team10.herokuapp.com/api/docs/{id}
   ```
-  **Body**
+  - **Body**
   ```js
     { }
   ```
-  **Response**
-  Status code: `200`
+  - **Response**
+  - **Status code**: `200`
   ```js
     {
       "id": "62ef5dab39fc51001607053c",
@@ -307,7 +308,7 @@
   ```js
     PUT https://auth-wiki-team10.herokuapp.com/api/docs/{id}/edit
   ```
-  **Body**
+  - **Body**
   ```js
     {
       "title": "Hey",
@@ -325,8 +326,8 @@
       ]
     }
   ```
-  **Response**
-  Status code: `200`
+  - **Response**
+  - **Status code**: `200`
   ```js
     {
       "id": "62ef499646554c3398753a02",
@@ -350,11 +351,11 @@
   ```js
     PUT https://auth-wiki-team10.herokuapp.com/api/docs/{id}/delete
   ```
-  **Body**
+  - **Body**
   ```js
     { }
   ```
-  **Response**
+  - **Status code**: `200`
   Status code: `200`
   ```js
     { }
@@ -367,15 +368,15 @@
   ```js
     POST https://auth-wiki-team10.herokuapp.com/api/comments/
   ```
-  **Body**
+  - **Body**
   ```js
     {
       "docId": "62ef499646554c3398753a02",
       "message": "Wow! Thanks for this code! It works well."
     }
   ```
-  **Response**
-  Status code: `200`
+  - **Response**
+  - **Status code**: `200`
   ```js
     { }
   ```
@@ -384,14 +385,14 @@
   ```js
     DELETE https://auth-wiki-team10.herokuapp.com/api/comments/
   ```
-  **Body**
+  - **Body**
   ```js
     {
       "docId": "62ef499646554c3398753a02",
       "message": "Wow! Thanks for this code! It works well."
     }
   ```
-  **Response**
+  - **Status code**: `200`
   Status code: `200`
   ```js
     { }
