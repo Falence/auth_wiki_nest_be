@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { join } from 'path';
 import { DocsModule } from './docs/docs.module';
 import { CommentsModule } from './comments/comments.module';
+import { ReactionsModule } from './reactions/reactions.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { CommentsModule } from './comments/comments.module';
     AuthModule,
     DocsModule,
     CommentsModule,
+    ReactionsModule,
   ],
   controllers: [],
   providers: [AppService],
