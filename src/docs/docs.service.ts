@@ -8,6 +8,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { CommentsService } from 'src/comments/comments.service';
+import { ReactionsService } from 'src/reactions/reactions.service';
 import { MongoRepository, ObjectID } from 'typeorm';
 import { CreateDocDto } from './dtos/create-doc.dto';
 import { EditDocDto } from './dtos/edit-doc.dto';
@@ -18,6 +19,8 @@ export class DocsService {
   constructor(
     @Inject(forwardRef(() => CommentsService))
     private commentService: CommentsService,
+    @Inject(forwardRef(() => ReactionsService))
+    private reactionService: ReactionsService,
     @InjectRepository(Doc)
     private repository: MongoRepository<Doc>,
   ) {}
@@ -46,6 +49,8 @@ export class DocsService {
 
     // fetch comments
     doc.comments = await this.commentService.getAllCommentsByDoc(doc);
+    doc.likes = await this.reactionService.countReaction(true);
+    doc.disLikes = await this.reactionService.countReaction(false);
     return doc;
   }
 
@@ -73,7 +78,6 @@ export class DocsService {
         HttpStatus.FORBIDDEN,
       );
     }
-    await this.repository.delete(id);
 
     // delete all comment related to the doc
     const comments = await this.commentService.getAllCommentsByDoc(doc);
@@ -82,17 +86,17 @@ export class DocsService {
       await this.commentService.deleteComment(comments[i - 1].id);
       i--;
     }
+
+    // delete all reactions related to the doc
+    const reactions = await this.reactionService.getAllReactionsByDoc(doc);
+    let j = reactions.length;
+    while (j > 0) {
+      await this.reactionService.deleteReaction(reactions[j - 1].id);
+      j--;
+    }
+
+    // delete doc
+    await this.repository.delete(id);
     return;
   }
-
-  // async likeOrDislikeDoc(id: ObjectID, isLike: boolean): Promise<void> {
-  //   const doc = await this.getDoc(id);
-  //   if (isLike === true) {
-  //     doc.likes += 1;
-  //   } else if (isLike === false) {
-  //     doc.dislikes += 1;
-  //   }
-  //   await this.repository.update(id, doc);
-  //   return;
-  // }
 }

@@ -250,6 +250,8 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
         "email": "hamsa@hamsa.com",
         "createdAt": "2022-08-07T05:10:28.309Z"
       },
+      "likes": 5,
+      "dislikes" 2,
       "blocks": [
         {
           "type": "heading",
@@ -383,14 +385,45 @@ Hosted on Heroku on the domain: https://auth-wiki-team10.herokuapp.com
 #### 2) DELETE COMMENT:
   Deletes a comment by id
   ```js
-    DELETE https://auth-wiki-team10.herokuapp.com/api/comments/
+    DELETE https://auth-wiki-team10.herokuapp.com/api/comments/{id}/delete
+  ```
+  - **Body**
+  ```js
+    { }
+  ```
+  - **Response**: Empty response
+  - **Status code**: `200`
+  ```js
+    { }
+  ```
+
+------------------------------------------------------------------------------------------------------
+#### REACTION
+#### 1) CREATE REACTION:
+  Creates a reaction for a particilar documentation. `true` for like and `false` for dislike
+  ```js
+    POST https://auth-wiki-team10.herokuapp.com/api/reactions/
   ```
   - **Body**
   ```js
     {
       "docId": "62ef499646554c3398753a02",
-      "message": "Wow! Thanks for this code! It works well."
+      "isLike": true
     }
+  ```
+  - **Response**: Empty response
+  - **Status code**: `200`
+  ```js
+    { }
+  ```
+#### 2) DELETE REACTION:
+  Deletes a reaction by id
+  ```js
+    DELETE https://auth-wiki-team10.herokuapp.com/api/reactions/{id}/delete
+  ```
+  - **Body**
+  ```js
+    { }
   ```
   - **Response**: Empty response
   - **Status code**: `200`

@@ -33,7 +33,7 @@ export class CommentsService {
   }
 
   async getAllCommentsByDoc(doc: Doc): Promise<Comment[]> {
-    return await this.repository.find({ where: { docId: doc.id.toString() } });
+    return this.repository.find({ where: { docId: doc.id.toString() } });
   }
 
   async deleteCommentById(id: ObjectID, user: User) {

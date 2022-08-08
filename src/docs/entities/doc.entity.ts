@@ -31,6 +31,12 @@ export class Doc {
   @Column(() => Comment)
   comments: Comment[];
 
+  @Column({ default: 0 })
+  likes: number;
+
+  @Column({ default: 0 })
+  disLikes: number;
+
   constructor(
     title: string,
     description: string,

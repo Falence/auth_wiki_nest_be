@@ -14,7 +14,7 @@ import { User } from './user.entity';
     JwtModule.register({
       secret: 'my-jwt-super-secret-to-keep-away-from-everyone',
       signOptions: {
-        expiresIn: '10h',
+        expiresIn: '1h',
       },
     }),
     TypeOrmModule.forFeature([User, RefreshToken]),
