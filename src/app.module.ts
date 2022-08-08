@@ -7,6 +7,7 @@ import { join } from 'path';
 import { DocsModule } from './docs/docs.module';
 import { CommentsModule } from './comments/comments.module';
 import { ReactionsModule } from './reactions/reactions.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ReactionsModule } from './reactions/reactions.module';
     DocsModule,
     CommentsModule,
     ReactionsModule,
+    EmailModule,
   ],
   controllers: [],
   providers: [AppService],

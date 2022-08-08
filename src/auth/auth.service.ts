@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import LoginResponseDto from './dto/login-response.dto';
 import { IJwtPayload } from './interfaces/i-jwt.payload';
 import { RefreshToken } from './refresh-token.entity';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,7 @@ export class AuthService {
     @InjectRepository(RefreshToken)
     private refreshTokenRepository: MongoRepository<RefreshToken>,
     private jwtService: JwtService,
+    private emailService: EmailService,
   ) {}
 
   async signUp(dto: RegisterDto): Promise<User> {
@@ -32,6 +34,9 @@ export class AuthService {
     let user = new User(dto.name, dto.email, password);
     user = await this.repository.save(user);
     delete user.password;
+
+    // send welcome email
+    await this.emailService.sendEmail(user);
     return user;
   }
 
