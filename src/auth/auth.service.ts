@@ -10,6 +10,11 @@ import LoginResponseDto from './dto/login-response.dto';
 import { IJwtPayload } from './interfaces/i-jwt.payload';
 import { RefreshToken } from './refresh-token.entity';
 import { EmailService } from 'src/email/email.service';
+import {
+  getPasswordResetEmailTemplate,
+  getWelcomeEmailTemplate,
+} from 'src/email/email-templates/welcome.email';
+import { ResetPassword } from './reset-password.entity';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +23,8 @@ export class AuthService {
     private repository: MongoRepository<User>,
     @InjectRepository(RefreshToken)
     private refreshTokenRepository: MongoRepository<RefreshToken>,
+    @InjectRepository(ResetPassword)
+    private resetPasswordRepository: MongoRepository<ResetPassword>,
     private jwtService: JwtService,
     private emailService: EmailService,
   ) {}
@@ -36,7 +43,12 @@ export class AuthService {
     delete user.password;
 
     // send welcome email
-    await this.emailService.sendEmail(user);
+    await this.emailService.sendEmail(
+      user,
+      'Welcome to The Auth Wiki platform.',
+      getWelcomeEmailTemplate(user).html,
+      getWelcomeEmailTemplate(user).text,
+    );
     return user;
   }
 
@@ -107,6 +119,81 @@ export class AuthService {
     return {
       accessToken,
       refreshToken,
+    };
+  }
+
+  async forgotPassword(email: string, request) {
+    const checkTokenExists = await this.resetPasswordRepository.findOne({
+      where: { email },
+    });
+    if (checkTokenExists) {
+      await this.resetPasswordRepository.delete({ email });
+    }
+    const userCheck = await this.repository.findOne({
+      where: { email },
+    });
+    if (!userCheck) {
+      throw new HttpException(
+        'No user with that email found!',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    const token = this.jwtService.sign(
+      {},
+      {
+        secret: 'my-jwt-super-secret-to-keep-away-from-everyone',
+        expiresIn: '5m',
+      },
+    );
+    await this.resetPasswordRepository.save(new ResetPassword(token, email));
+    const resetUrl = `${request.protocol}://${request.hostname}/auth/reset-password/${token}`;
+    const user = new User(resetUrl, email, '');
+    console.log(user);
+    await this.emailService.sendEmail(
+      user,
+      'Password Reset',
+      getPasswordResetEmailTemplate(user).html,
+      getPasswordResetEmailTemplate(user).text,
+    );
+    return;
+  }
+
+  async resetPassword(token: string) {
+    const resetPasswordObj = await this.resetPasswordRepository.findOne({
+      where: { token },
+    });
+    if (!resetPasswordObj) {
+      throw new HttpException(
+        'Invalid Password reset link!',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    const user = await this.repository.findOne({
+      where: { email: resetPasswordObj.email },
+    });
+    if (!user) {
+      await this.resetPasswordRepository.delete({ token });
+      throw new HttpException('User not found!', HttpStatus.NOT_FOUND);
+    }
+    try {
+      const payload = this.jwtService.verify(token, {
+        secret: 'my-jwt-super-secret-to-keep-away-from-everyone',
+      });
+    } catch (error) {
+      await this.resetPasswordRepository.delete({ token });
+      throw new HttpException(
+        'Password reset link expired!',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    const newPassword = 'password1234';
+    user.password = bcrypt.hashSync(newPassword, 10);
+    await this.repository.save(user);
+
+    await this.resetPasswordRepository.delete({ token });
+
+    return {
+      'Your new password is:': newPassword,
     };
   }
 

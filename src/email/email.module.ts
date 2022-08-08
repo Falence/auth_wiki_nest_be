@@ -4,6 +4,8 @@ import { EmailController } from './email.controller';
 import { EmailService } from './email.service';
 import { google } from 'googleapis';
 import { CreateAccessToken } from './create-access-token';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Contact } from './entities/contact-us.entities';
 
 const CLIENT_ID =
   '85540443280-dsu4bps4jnfpa6q7j4e4mn4vul2fnhjr.apps.googleusercontent.com';
@@ -36,6 +38,7 @@ export const ACCESS_TOKEN = new CreateAccessToken().generateAccessToken();
         },
       },
     }),
+    TypeOrmModule.forFeature([Contact]),
   ],
   controllers: [EmailController],
   providers: [EmailService],

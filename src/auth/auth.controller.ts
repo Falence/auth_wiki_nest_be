@@ -2,13 +2,14 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
-  UseGuards,
+  Req,
   ValidationPipe,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { GetUser } from './decorators/get-user.decorator';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { LoginDto } from './dto/login-in.dto';
 import { RefreshTokenDto } from './dto/refreah-token.dto';
 import { RegisterDto } from './dto/register.dto';
@@ -33,9 +34,21 @@ export class AuthController {
     return this.authService.refreshToken(body.refreshToken);
   }
 
+  @Post('/forgot-password')
+  async forgotPassword(
+    @Body(ValidationPipe) dto: ForgotPasswordDto,
+    @Req() req,
+  ) {
+    return this.authService.forgotPassword(dto.email, req);
+  }
+
+  @Get('/reset-password/:token')
+  async resetPassword(@Param('token', ValidationPipe) token: string) {
+    return this.authService.resetPassword(token);
+  }
+
   @Get('/test')
-  @UseGuards(AuthGuard())
-  test(@GetUser() user: User) {
-    console.log(user);
+  test(@GetUser() user: User, @Req() req) {
+    console.log(req.hostname);
   }
 }

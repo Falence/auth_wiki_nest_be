@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { RefreshToken } from './refresh-token.entity';
+import { ResetPassword } from './reset-password.entity';
 import { User } from './user.entity';
 
 @Module({
@@ -18,7 +19,7 @@ import { User } from './user.entity';
         expiresIn: '1h',
       },
     }),
-    TypeOrmModule.forFeature([User, RefreshToken]),
+    TypeOrmModule.forFeature([User, RefreshToken, ResetPassword]),
     EmailModule,
   ],
   controllers: [AuthController],
