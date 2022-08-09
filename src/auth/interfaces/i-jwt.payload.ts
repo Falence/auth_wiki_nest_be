@@ -4,4 +4,5 @@ export interface IJwtPayload {
   id: ObjectID;
   name: string;
   email: string;
+  imgUrl: string;
 }

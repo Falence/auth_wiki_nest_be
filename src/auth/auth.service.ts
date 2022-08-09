@@ -73,6 +73,7 @@ export class AuthService {
       id: user.id,
       name: user.name,
       email: user.email,
+      imgUrl: user.imgUrl,
     };
     await this.refreshTokenRepository.findOneAndDelete({ user });
     return {
