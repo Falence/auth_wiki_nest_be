@@ -31,6 +31,6 @@ export class User {
     this.email = email;
     this.password = password;
     this.imgUrl =
-      'https://drive.google.com/file/d/1nSm1PvuySut9b8kfCgDlpye9vlhjmQwY';
+      'https://res.cloudinary.com/dkxvfwvyx/image/upload/v1660063017/Auth%20WIki/profile/avatar_udgzok.png';
   }
 }
