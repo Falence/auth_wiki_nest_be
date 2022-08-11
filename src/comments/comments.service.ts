@@ -25,7 +25,6 @@ export class CommentsService {
 
   async createComment(docId: ObjectID, user: User, message: string) {
     const doc = await this.docService.getDoc(docId);
-    delete user.email;
     delete user.createdAt;
     const comment = new Comment(message, doc.id.toString(), user);
     await this.repository.save(comment);

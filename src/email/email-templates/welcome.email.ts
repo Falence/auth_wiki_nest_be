@@ -1,5 +1,6 @@
 import { User } from 'src/auth/user.entity';
 import { Contact } from '../entities/contact-us.entities';
+import { Newsletter } from '../entities/newsletter.entities';
 
 export function getWelcomeEmailTemplate(user: User) {
   return {
@@ -37,5 +38,18 @@ export function getPasswordResetEmailTemplate(user: User) {
     <p>Regards, Auth Wiki Team 10 Support.</p>
   `,
     text: `Forogt your password?\n Click on this link to to reset your password <a href="${user.name}">${user.name}\nThis link expired in 5 minutes!\n\nRegards, Auth Wiki Team 10 Support.`,
+  };
+}
+
+export function getNewsletterEmailTemplate(user: User | Newsletter) {
+  return {
+    html: `
+    <h1>Newsletter subscription</h1>
+    <p>Hello. This email ${user.email} has been added to our newsletter mailing list.</p>
+    <p>You'll be receiving updates from us.</p>
+    <br>
+    <p>Regards, Auth Wiki Team 10 Support.</p>
+  `,
+    text: `Newsletter subscription\n Hello. You've been added to our newsletter mailing list.\n You'll be receiving updates from us.\n\nRegards, Auth Wiki Team 10 Support.`,
   };
 }

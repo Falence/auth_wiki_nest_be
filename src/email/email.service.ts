@@ -4,8 +4,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { MongoRepository } from 'typeorm';
 import { ContactUsDto } from './dtos/contact-us.dto';
-import { getContactUsEmailTemplate } from './email-templates/welcome.email';
+import {
+  getContactUsEmailTemplate,
+  getNewsletterEmailTemplate,
+} from './email-templates/welcome.email';
 import { Contact } from './entities/contact-us.entities';
+import { Newsletter } from './entities/newsletter.entities';
 
 @Injectable()
 export class EmailService {
@@ -13,10 +17,12 @@ export class EmailService {
     private mailService: MailerService,
     @InjectRepository(Contact)
     private contactUsRepository: MongoRepository<Contact>,
+    @InjectRepository(Newsletter)
+    private newsletterRepository: MongoRepository<Newsletter>,
   ) {}
 
   async sendEmail(
-    user: User | Contact,
+    user: User | Contact | Newsletter,
     subject: string,
     html: string,
     text: string,
@@ -44,6 +50,18 @@ export class EmailService {
       'Thanks for getting in touch',
       getContactUsEmailTemplate(newContact).html,
       getContactUsEmailTemplate(newContact).text,
+    );
+    return;
+  }
+
+  async newsletter(email: string): Promise<void> {
+    const newsletter = new Newsletter(email);
+    await this.newsletterRepository.save(newsletter);
+    await this.sendEmail(
+      newsletter,
+      'Newsletter subscription',
+      getNewsletterEmailTemplate(newsletter).html,
+      getNewsletterEmailTemplate(newsletter).text,
     );
     return;
   }
