@@ -56,6 +56,12 @@ export class Doc {
     this.description = description;
     this.author = author;
     this.blocks = blocks;
+    this.downloadLinkPython =
+      'https://drive.google.com/file/d/1Nqq7ZX7XeSyJhlkBEhv710aqK4gvlhDF/view?usp=sharing';
+    this.downloadLinkPhp =
+      'https://drive.google.com/file/d/1Nqq7ZX7XeSyJhlkBEhv710aqK4gvlhDF/view?usp=sharing';
+    this.downloadLinkNode =
+      'https://drive.google.com/file/d/1Nqq7ZX7XeSyJhlkBEhv710aqK4gvlhDF/view?usp=sharing';
   }
 }
 
